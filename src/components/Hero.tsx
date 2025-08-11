@@ -1,6 +1,7 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useEffect, useRef } from "react";
 import "../styles/hero.css";
+import logoGif from "../assets/logos/empires_agency_letter_float2.gif";
 
 type Props = { secondary?: boolean };
 
@@ -48,7 +49,7 @@ export default function Hero({ secondary }: Props) {
             <Card className="logo-card shadow-0" ref={cardRef} aria-hidden="true">
               <Card.Body className="p-0 d-flex align-items-center justify-content-center">
                 <img
-                  src="src/assets/logos/empires_agency_letter_float2.gif"
+                  src={logoGif}
                   alt="Empires Agency"
                   className="hero-logo img-fluid"
                 />

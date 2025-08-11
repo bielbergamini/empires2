@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navbar, Container, Nav, Offcanvas, Button } from "react-bootstrap";
 import "../styles/navbar.css";
+import crownPng from "../assets/logos/favicon-coroa-gradient-1024.png"; 
 
 type Props = {
   onNavigate: (
@@ -33,7 +34,7 @@ export default function SiteNavbar({ onNavigate }: Props) {
           className="d-flex align-items-center"
         >
           <img
-            src="src\assets\logos\favicon-coroa-gradient-1024.png"
+            src={crownPng}
             alt="Empires Agency"
             height={60}
             className="brand-logo"
