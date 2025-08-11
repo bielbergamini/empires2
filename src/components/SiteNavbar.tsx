@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navbar, Container, Nav, Offcanvas, Button } from "react-bootstrap";
 import "../styles/navbar.css";
-import crownPng from "../assets/logos/favicon-coroa-gradient-1024.png"; 
+import crownPng from "../assets/logos/logo_empires_agency.png"; 
 
 type Props = {
   onNavigate: (
