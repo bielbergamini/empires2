@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FaInstagram, FaWhatsapp, FaEnvelope } from "react-icons/fa";
 import "../styles/footer.css";
+import logoPng from "../assets/logos/logo_empires_agency.png";
 
 export default function Footer() {
   return (
@@ -11,9 +12,10 @@ export default function Footer() {
         <Row className="g-4 align-items-center footerX-top">
           <Col md="auto">
             <img
-              src="src\assets\logos\logo_empires_agency.png"
+              src={logoPng}
               alt="Empires Agency"
               className="footerX-logo"
+              loading="lazy"
             />
           </Col>
           <Col className="text-center">
