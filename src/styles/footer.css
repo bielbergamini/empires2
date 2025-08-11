@@ -1,0 +1,151 @@
+/* ===== Footer moderno, dark e responsivo ===== */
+.footerX {
+  position: relative;
+  padding: 56px 0 24px;
+  background: transparent;
+}
+
+.footerX-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 400px at 10% -10%, rgba(109, 40, 217, 0.18), transparent 60%),
+    radial-gradient(1200px 400px at 90% 110%, rgba(59, 130, 246, 0.16), transparent 60%),
+    rgba(20, 20, 30, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  z-index: -1;
+}
+
+.footerX-top { margin-bottom: 24px; }
+
+.footerX-logo {
+  height: 44px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.35));
+}
+
+.footerX-slogan {
+  /* centralização e largura confortável */
+  text-align: center;
+  margin: 0 auto;
+  max-width: 960px;
+
+  /* tipografia */
+  font-weight: 600;
+  font-size: clamp(1rem, 0.6rem + 1vw, 1.35rem); /* levemente maior */
+  line-height: 1.55;
+  letter-spacing: 0.2px;
+
+  /* cor/estilo: discreto com leve gradiente */
+  background: linear-gradient(90deg, #c7baff, #a8c8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* mantém texto legível no dark sem “contorno branco” */
+  opacity: 0.95;
+}
+
+.footerX-social a {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.28), rgba(59, 130, 246, 0.18));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-left: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  color: #fff;
+}
+.footerX-social a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+}
+.footerX-social svg { width: 20px; height: 20px; }
+
+.footerX-grid { margin-top: 8px; margin-bottom: 12px; }
+
+.footerX-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #fff;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.footerX-links, .footerX-list {
+  list-style: none; padding: 0; margin: 0;
+}
+.footerX-links li, .footerX-list li { margin: 8px 0; }
+
+.footerX-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+.footerX-links a:hover {
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.footerX-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 24px;
+  padding-top: 16px;
+  align-items: center;
+}
+.footerX-back { color: var(--text-secondary); text-decoration: none; }
+.footerX-back:hover { color: #fff; text-decoration: underline; }
+
+/* Responsivo */
+@media (max-width: 991.98px) {
+  .footerX-top { text-align: center; }
+  .footerX-social { justify-content: center; display: flex; gap: 8px; }
+}
+@media (max-width: 575.98px) {
+  .footerX { padding-top: 44px; }
+  .footerX-logo { height: 38px; }
+}
+
+.footerX-logo {
+  height: clamp(60px, 6vw, 80px);
+  width: auto;
+}
+
+/* Base da flag (flag-icons) */
+.flag {
+  /* usa em: <span class="fi fi-br fis flag ..."></span> */
+  display: inline-block;
+  font-size: 1.25rem;       /* controla o tamanho do ícone */
+  margin-right: .5rem;
+  line-height: 1;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset,
+              0 1px 2px rgba(0,0,0,.35);
+  vertical-align: -2px;
+}
+
+/* Redonda + aro roxo + glow sutil */
+.flag.round {
+  border-radius: 50%;
+  /* aro roxo */
+  outline: 2px solid rgba(139, 92, 246, .55);
+  outline-offset: 2px;
+  /* brilho suave */
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 6px 14px rgba(139, 92, 246, .28);
+}
+
+/* Hover opcional (um pouco mais de destaque) */
+.flag.round:hover {
+  outline-color: rgba(139, 92, 246, .75);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 10px 18px rgba(139, 92, 246, .36);
+}
+

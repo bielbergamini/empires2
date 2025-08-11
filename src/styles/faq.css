@@ -1,0 +1,135 @@
+:root{
+  --surface: rgba(255,255,255,.035);
+  --surface-hover: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.08);
+  --border-strong: rgba(124,58,237,.35);
+  --text: #EDEBFF;
+  --muted: #A3A1B5;
+  --accent: #7C3AED;
+  --accent2:#6D28D9;
+  --ring: rgba(124,58,237,.5);
+  --shadow-soft: 0 8px 26px rgba(0,0,0,.28);
+
+  --slab-surface: rgba(8,8,20,.55);
+  --slab-border:  rgba(255,255,255,.10);
+}
+
+/* ====== Seção isolada, com respiro GRANDE ====== */
+.section-isolated{
+  scroll-margin-top: 96px;                               /* âncora do menu fixo */
+  padding-top: clamp(64px, 10vh, 128px);
+  padding-bottom: clamp(72px, 12vh, 144px);              /* não cola em nada */
+}
+
+.faqSection{
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Anti-banding (ruído sutil embutido) */
+.faqNoise{
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  opacity: .028; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'>\
+ <filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='6'/>\
+ <feComponentTransfer><feFuncA type='table' tableValues='0 0.35'/></feComponentTransfer></filter>\
+ <rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+/* SLAB central (bloco isolado) */
+.faqSlab{
+  position: relative;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 44px);
+  border-radius: 28px;
+  background: var(--slab-surface);
+  border: 1px solid var(--slab-border);
+  box-shadow: 0 40px 100px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+/* ====== Header ====== */
+.faqHeader{ text-align:center; margin-bottom: 36px; }
+.faqKicker{
+  display:inline-block; padding:6px 10px; font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--text);
+  background: linear-gradient(180deg, rgba(124,58,237,.22), rgba(124,58,237,.12));
+  border:1px solid rgba(124,58,237,.25); border-radius:999px; backdrop-filter: blur(6px);
+}
+.faqTitle{
+  margin:12px 0 6px; font-size: clamp(24px, 2.6vw, 36px);
+  line-height:1.15; color:var(--text); font-weight:800;
+}
+.faqSubtitle{
+  margin:0 auto; max-width:760px; color:var(--muted);
+  font-size: clamp(14px, 1.6vw, 16px);
+}
+
+/* ====== Duas colunas independentes ====== */
+.faqGrid{
+  display:flex; gap:14px; align-items:flex-start; margin-top:22px;
+}
+.faqCol{
+  flex:1 1 0; display:flex; flex-direction:column; gap:14px;
+}
+@media (max-width: 991px){
+  .faqGrid{ flex-direction: column; }
+}
+
+/* ====== Card ====== */
+.faqItem{
+  position:relative; align-self:flex-start;
+  border-radius:14px; border:1px solid var(--border);
+  background:var(--surface); box-shadow:var(--shadow-soft);
+  overflow:hidden; transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.faqItem:hover{ background:var(--surface-hover); }
+.faqItem.open{ border-color:var(--border-strong); }
+
+/* Barra de acento à esquerda */
+.faqItem::before{
+  content:""; position:absolute; inset:0 auto 0 0; width:3px;
+  background:linear-gradient(180deg, var(--accent), var(--accent2)); opacity:.85;
+}
+
+/* ====== Cabeçalho ====== */
+.faqQuestion{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;
+  background:transparent; color:var(--text); border:0;
+  padding:16px 18px 14px 16px;
+  font-size:clamp(15px, 1.7vw, 17px); line-height:1.35; text-align:left; cursor:pointer;
+}
+.faqQuestion:focus-visible{
+  outline:none; box-shadow:0 0 0 3px var(--ring); border-radius:14px;
+}
+
+/* Ícone + / - */
+.faqIcon{
+  position:relative; flex:0 0 auto;
+  width:22px; height:22px; border-radius:999px;
+  border:1px solid rgba(124,58,237,.35);
+  background:radial-gradient(circle at 50% 40%, rgba(124,58,237,.22), rgba(124,58,237,.08));
+}
+.faqIcon::before, .faqIcon::after{
+  content:""; position:absolute; inset:0; margin:auto;
+  width:12px; height:2px; background:#D8CCFF; border-radius:2px; transition:transform .18s ease;
+}
+.faqIcon::after{ transform: rotate(90deg); }
+.faqItem.open .faqIcon::after{ transform: rotate(90deg) scaleX(0); }
+
+/* ====== Resposta ====== */
+.faqAnswer{ overflow:hidden; height:0px; will-change:height; border-top:1px solid transparent; }
+.faqItem.open .faqAnswer{ border-top-color: var(--border); }
+.faqInner{ padding:10px 18px 16px 16px; color:var(--muted); font-size:15px; line-height:1.6; }
+
+/* ====== Reduced motion ====== */
+@media (prefers-reduced-motion: reduce){
+  .faqAnswer, .faqItem{ transition:none !important; }
+}

@@ -1,0 +1,114 @@
+.empires-navbar {
+  background: linear-gradient(90deg, #0f0025, #1a003f);
+  padding: 8px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* Logo */
+.empires-navbar .brand-logo {
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(124, 58, 237, 0.4));
+  transition: transform 0.25s ease, filter 0.25s ease;
+  margin-left: 20px;
+}
+
+.empires-navbar .brand-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 12px rgba(124, 58, 237, 0.6));
+}
+
+/* Links */
+.empires-navbar .nav-link {
+  color: #eae4f8 !important;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.empires-navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 2px;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #9333ea, #c026d3);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+
+.empires-navbar .nav-link:hover {
+  background: rgba(194, 148, 255, 0.15);
+  color: #fff !important;
+  box-shadow: 0 4px 10px rgba(160, 100, 255, 0.4);
+}
+
+.empires-navbar .nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Botão outline */
+.empires-navbar .btn-ghost {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+  font-size: 1.05rem;
+  padding: 8px 14px;
+  transition: all 0.25s ease;
+}
+
+.empires-navbar .btn-ghost:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.8);
+}
+
+/* Botão gradiente */
+.empires-navbar .btn-gradient {
+  background: linear-gradient(90deg, #7c3aed, #9333ea, #c026d3);
+  border: none;
+  color: white;
+  font-size: 1.05rem;
+  padding: 8px 14px;
+  transition: all 0.25s ease;
+}
+
+.empires-navbar .btn-gradient:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.6);
+}
+
+/* Toggler (menu hambúrguer) */
+.empires-navbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.empires-navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.92)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Remover fundo no desktop */
+@media (min-width: 992px) {
+  .empires-navbar .navbar-collapse {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
+
+/* Fundo preto no mobile */
+@media (max-width: 991.98px) {
+  .empires-navbar .navbar-collapse,
+  .empires-offcanvas .offcanvas-header,
+  .empires-offcanvas .offcanvas-body {
+    background: #000; /* preto */
+  }
+
+  .empires-navbar .nav-link {
+    display: block;
+    padding: 12px 10px;
+    border-radius: 10px;
+  }
+}

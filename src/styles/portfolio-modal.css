@@ -1,0 +1,184 @@
+/* ====== Tema roxo escuro ====== */
+:root {
+  --pm-bg: #0c0812;
+  --pm-surface: #130c1d;
+  --pm-surface-2: #1a1029;
+  --pm-border: #2a1840;
+  --pm-accent: #6b21a8;
+  --pm-accent-2: #8b5cf6;
+  --pm-blue: #4f46e5;
+  --pm-pink: #ff4db8;         /* rosa do hover do X */
+  --pm-text: #eae7f5;
+}
+
+/* ====== Backdrop com leve vinheta ====== */
+.portfolio-backdrop {
+  background:
+    radial-gradient(80vw 80vh at 60% 20%, rgba(107, 33, 168, .25), transparent 60%),
+    radial-gradient(70vw 70vh at 20% 80%, rgba(79, 70, 229, .2), transparent 60%),
+    var(--pm-bg) !important;
+  backdrop-filter: blur(2px);
+}
+
+/* ====== Largura do modal ====== */
+.portfolio-dialog {
+  max-width: min(1280px, 96vw);
+}
+
+/* ====== Conteúdo ====== */
+.portfolio-content {
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(139, 92, 246, .08), transparent 60%),
+    radial-gradient(900px 500px at -15% 110%, rgba(79, 70, 229, .08), transparent 60%),
+    linear-gradient(180deg, var(--pm-surface) 0%, var(--pm-surface-2) 100%);
+  color: var(--pm-text);
+  border: 1px solid var(--pm-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.6),
+    0 0 0 1px rgba(139, 92, 246, .1) inset;
+}
+
+/* ====== Header ====== */
+.portfolio-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+}
+.portfolio-title {
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* ====== Botão de fechar (simples, pequeno, gira no hover) ====== */
+.portfolio-header .btn-close {
+  --bs-btn-close-bg: none;     /* remove o ícone padrão do Bootstrap */
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  position: relative;
+  opacity: 1;
+  color: #d6ccff;              /* cor das linhas do X via currentColor */
+  transform: rotate(0deg);
+  transition: transform .25s ease, color .2s ease, background .2s ease, box-shadow .25s ease;
+  box-shadow: none;
+}
+
+/* desenha o "X" com 2 risquinhos finos */
+.portfolio-header .btn-close::before,
+.portfolio-header .btn-close::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60%;
+  height: 2px;
+  background: currentColor;
+  transform-origin: center;
+  border-radius: 2px;
+}
+.portfolio-header .btn-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.portfolio-header .btn-close::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+
+/* hover: gira 180° e fica rosa */
+.portfolio-header .btn-close:hover {
+  transform: rotate(180deg);
+  color: var(--pm-pink);
+  background: rgba(255, 77, 184, .08);
+  box-shadow: 0 0 0 6px rgba(255, 77, 184, .12);
+}
+.portfolio-header .btn-close:active {
+  transform: rotate(180deg) scale(0.96);
+  box-shadow: 0 0 0 3px rgba(255, 77, 184, .18);
+}
+
+/* ====== Body e páginas ====== */
+.portfolio-body {
+  padding: clamp(16px, 2.4vw, 28px);
+}
+
+.portfolio-pages {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.4vw, 26px);
+  scroll-snap-type: y proximity;
+}
+
+.portfolio-page {
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+/* Imagem grande e legível; clique para zoom */
+.portfolio-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.06);
+  background: #0b0911;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.45),
+    0 0 0 0 rgba(139, 92, 246, .0);
+  transition: transform .38s cubic-bezier(.2,.7,.2,1),
+             box-shadow .4s ease, filter .35s ease;
+  transform-origin: center;
+  cursor: zoom-in;
+}
+.portfolio-page:hover .portfolio-img {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 18px 48px rgba(0,0,0,.6),
+    0 0 0 1px rgba(139, 92, 246, .20),
+    0 0 48px rgba(139, 92, 246, .15);
+  filter: contrast(1.03) saturate(1.02);
+}
+
+/* ====== Overlay de Zoom ====== */
+.pm-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 1060;
+  background: rgba(12, 8, 18, .78);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+.pm-zoom.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.pm-zoom-img {
+  max-width: 92vw;
+  max-height: 90vh;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 22px 70px rgba(0,0,0,.65), 0 0 0 1px rgba(139, 92, 246, .18);
+  transform: scale(.96);
+  transition: transform .28s ease;
+  cursor: zoom-out;
+}
+.pm-zoom.show .pm-zoom-img { transform: scale(1); }
+
+/* ====== Acessibilidade ====== */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+
+/* ====== Responsividade ====== */
+@media (max-width: 576px) {
+  .portfolio-dialog { max-width: 100vw; margin: 0 10px; }
+  .portfolio-content { border-radius: 14px; }
+  .portfolio-img { border-radius: 12px; }
+  /* X ligeiramente maior no mobile se quiser tocar mais fácil */
+  .portfolio-header .btn-close { width: 32px; height: 32px; }
+}

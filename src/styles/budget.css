@@ -1,0 +1,143 @@
+/* =========================
+   ORÇAMENTO — isolado, com anti-banding e animação on-view
+   ========================= */
+
+:root{
+  --text-secondary: #A9B0C7;
+  --slab-surface: rgba(8,8,20,.55);
+  --slab-border:  rgba(255,255,255,.10);
+}
+
+/* seção isolada com respiro GRANDE (não cola em nada) */
+.section-isolated{
+  scroll-margin-top: 96px;
+  padding-top: clamp(64px, 10vh, 128px);
+  padding-bottom: clamp(72px, 12vh, 144px);
+}
+
+.budgetX{
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* anti-banding (ruído sutil embutido) */
+.budgetX-noise{
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  opacity: .028; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'>\
+ <filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='8'/>\
+ <feComponentTransfer><feFuncA type='table' tableValues='0 0.35'/></feComponentTransfer></filter>\
+ <rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+/* SLAB central (cartão grande) */
+.budgetX-slab{
+  position: relative;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 44px);
+  border-radius: 28px;
+  background: var(--slab-surface);
+  border: 1px solid var(--slab-border);
+  box-shadow: 0 40px 100px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.budgetX .section-title { color: #fff; }
+.budgetX .text-secondary { color: var(--text-secondary) !important; }
+
+/* CTA do orçamento */
+.budgetX-cta{
+  --empire-bg1: rgba(109, 40, 217, 0.35);
+  --empire-bg2: rgba(59, 130, 246, 0.25);
+  --empire-border: rgba(255, 255, 255, 0.18);
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.9rem 1.25rem; border-radius:999px;
+  border:1px solid var(--empire-border);
+  background: linear-gradient(135deg, var(--empire-bg1), var(--empire-bg2));
+  color:#fff; font-weight:600; letter-spacing:.2px; text-decoration:none;
+  box-shadow:0 10px 32px rgba(0,0,0,.45);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, opacity .2s ease;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.budgetX-cta:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.28); box-shadow:0 14px 42px rgba(0,0,0,.55); }
+.budgetX-cta:focus-visible{ outline:none; box-shadow:0 0 0 .2rem rgba(109, 40, 217, 0.35); }
+.budgetX-cta .arrow{ display:inline-block; transition: transform .2s ease; }
+.budgetX-cta:hover .arrow{ transform: translateX(3px); }
+
+/* wrapper do gráfico */
+.budgetX-chartWrap{
+  background: rgba(20, 20, 30, 0.55);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 32px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+.budgetX-chart{ width:100%; height:auto; display:block; }
+
+/* grade e eixos */
+.grid{ stroke: rgba(255,255,255,.08); stroke-width: 1; }
+.axis{ stroke: rgba(255,255,255,.18); stroke-width: 1.4; }
+
+/* barras (sobem) */
+.bar{
+  fill: rgba(255,255,255,.14);
+  animation: rise 900ms ease-out forwards;
+  animation-delay: var(--d, 0ms);
+  transform-origin: bottom;
+}
+@keyframes rise{
+  from { y: 320; height: 0; }
+  to   { y: calc(320px - var(--h)); height: var(--h); }
+}
+
+/* linha (traçado) */
+.trend{
+  stroke: #c6b7ff; stroke-width: 3; stroke-linecap: round;
+  stroke-dasharray: 800; stroke-dashoffset: 800;
+  animation: draw 1600ms ease forwards; animation-delay: 300ms;
+  filter: drop-shadow(0 2px 8px rgba(198,183,255,.25));
+}
+@keyframes draw{ to { stroke-dashoffset: 0; } }
+
+/* ponto/label */
+.dot{
+  fill:#fff; stroke:#7c69ff; stroke-width:3;
+  transform-origin:center; opacity:0;
+  animation: pop 600ms ease forwards; animation-delay: 1200ms;
+}
+@keyframes pop{
+  0% { transform: scale(0.4); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100%{ transform: scale(1); opacity: 1; }
+}
+.label{
+  fill:#ffffff; font-size:12px; opacity:0;
+  animation: fadeIn .6s ease forwards; animation-delay: 1350ms;
+}
+@keyframes fadeIn{ to{ opacity: 1; } }
+
+/* só anima quando entra na viewport */
+.budgetX:not(.in) .bar,
+.budgetX:not(.in) .trend,
+.budgetX:not(.in) .dot,
+.budgetX:not(.in) .label{
+  animation: none !important;
+  stroke-dashoffset: 800 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+}
+
+/* acessibilidade */
+@media (prefers-reduced-motion: reduce){
+  .bar, .trend, .dot, .label, .budgetX-cta{
+    animation:none !important; transition:none !important;
+  }
+}

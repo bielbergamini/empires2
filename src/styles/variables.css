@@ -1,0 +1,19 @@
+:root {
+  /* tema base */
+  --bg-start: #0b0f2e;
+  --bg-end:   #1a103e;
+
+  --text-light: #f0f0f0;
+  --text-secondary: #c9c6dd;
+
+  /* superfícies */
+  --surface-0: transparent;
+  --surface-1: rgba(255,255,255,.04);
+  --surface-2: rgba(255,255,255,.06);
+  --border-1: rgba(255,255,255,.08);
+  --border-2: rgba(255,255,255,.14);
+
+  /* override Bootstrap (impede bg branco) */
+  --bs-body-bg: transparent;
+  --bs-body-color: var(--text-light);
+}

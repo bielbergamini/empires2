@@ -1,0 +1,27 @@
+:root {
+  --bg-dark: #0b0f2e; /* base escura */
+  --glow-blue: rgba(77, 181, 255, 0.35);  /* azul mais intenso */
+  --glow-pink: rgba(194, 108, 255, 0.35); /* rosa mais intenso */
+
+  --card: #141416;
+  --text-light: #f0f0f0;
+  --text-secondary: #c9c6dd;
+
+  --bs-body-bg: transparent;
+  --bs-body-color: var(--text-light);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 30%, var(--glow-blue), transparent 50%),
+    radial-gradient(circle at 80% 70%, var(--glow-pink), transparent 50%),
+    var(--bg-dark);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--text-light);
+}

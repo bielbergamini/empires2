@@ -1,0 +1,144 @@
+/* ===== Tema e base ===== */
+:root{
+  --ax-surface:#130c1d;
+  --ax-surface-2:#1a1029;
+  --ax-border:#2a1840;
+  --ax-accent:#8b5cf6;    /* roxo principal */
+  --ax-pink:#ff4db8;      /* rosa detalhe */
+  --ax-cyan:#4db5ff;      /* azul detalhe */
+  --ax-text:#eae7f5;
+  --ax-text-dim:#c9c4de;
+}
+
+.section.aboutX{
+  position: relative;
+  padding: clamp(80px, 9vw, 140px) 0;  /* mais respiro */
+  color: var(--ax-text);
+  background:
+    radial-gradient(1000px 500px at 90% -10%, rgba(139,92,246,.07), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(79,70,229,.06), transparent 60%),
+    linear-gradient(180deg,var(--ax-surface) 0%, var(--ax-surface-2) 100%);
+  overflow: hidden;
+}
+
+/* ===== Titulação ===== */
+.aboutX-eyebrow{
+  margin: 0 0 6px;
+  font-size: clamp(.95rem, .4vw + .8rem, 1.05rem);  /* maior */
+  letter-spacing:.22em;
+  text-transform: uppercase;
+  color: #bdb5ee;
+  opacity:.9;
+}
+
+.aboutX .section-title{
+  margin: 0 0 18px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  font-size: clamp(2rem, 1.2vw + 1.6rem, 2.6rem);  /* maior */
+  line-height: 1.2;
+}
+
+.aboutX .section-title::after{
+  content:"";
+  display:block;
+  width: 86px;
+  height: 3px;
+  margin-top: 12px;
+  background: linear-gradient(90deg,var(--ax-accent), var(--ax-pink), var(--ax-cyan));
+  border-radius: 3px;
+}
+
+/* ===== Texto / Card ===== */
+.aboutX-panel{
+  padding: clamp(22px, 2.4vw, 36px);  /* mais padding dentro do “quadrado” */
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+  border: 1px solid var(--ax-border);
+  border-radius: 20px;                /* cantos mais suaves */
+  box-shadow: 0 10px 28px rgba(0,0,0,.38), 0 0 0 1px rgba(139,92,246,.08) inset;
+}
+
+.aboutX-lead{
+  color: var(--ax-text);
+  font-size: clamp(1.18rem, .9vw + 1rem, 1.48rem);  /* maior */
+  line-height: 1.75;                                  /* mais confortável */
+  margin: 12px 0 12px;
+  text-wrap: balance;
+}
+
+.aboutX-text{
+  color: var(--ax-text-dim);
+  font-size: clamp(1.05rem, .55vw + .95rem, 1.22rem); /* maior */
+  line-height: 1.78;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ===== Ilustração ===== */
+.aboutX-figure{
+  position: relative;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  transform-style: preserve-3d;
+}
+.aboutX-figure::before{
+  content:"";
+  position:absolute; inset: -8% -10% -8% -10%;
+  background:
+    radial-gradient(40% 40% at 70% 30%, rgba(139,92,246,.25), transparent 60%),
+    radial-gradient(35% 35% at 30% 70%, rgba(77,181,255,.18), transparent 60%);
+  filter: blur(8px);
+  z-index: -1;
+}
+.aboutX-figure img{
+  width: min(600px, 96%);            /* imagem um pouco maior */
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  background: #0b0911;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 22px 56px rgba(0,0,0,.52), 0 0 0 1px rgba(139,92,246,.12);
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, filter .3s ease;
+}
+.aboutX-figure:hover img{
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 30px 78px rgba(0,0,0,.62), 0 0 0 1px rgba(139,92,246,.2);
+  filter: saturate(1.03);
+}
+
+/* ===== Reveal on scroll / load ===== */
+.reveal{
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .6s ease, transform .6s ease, filter .6s ease;
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform;
+}
+.reveal-left{  transform: translate(-26px, 22px); }
+.reveal-right{ transform: translate(26px, 22px); }
+.is-visible{
+  opacity: 1;
+  transform: translate(0,0);
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .reveal, .aboutX-figure img{ transition: none !important; }
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 991.98px){
+  .aboutX-figure{ margin-top: 12px; }
+  .aboutX-figure img{ width: min(560px, 100%); }
+  .aboutX-panel{ padding: 22px; }
+}
+
+@media (max-width: 575.98px){
+  .aboutX-panel{ border-radius: 16px; padding: 20px; }
+  .aboutX-figure img{ border-radius: 16px; }
+  .aboutX .section-title{ font-size: clamp(1.8rem, 6vw, 2.2rem); }
+  .aboutX-lead{ font-size: clamp(1.12rem, 4.4vw, 1.32rem); }
+  .aboutX-text{ font-size: clamp(1rem, 3.6vw, 1.16rem); }
+}
